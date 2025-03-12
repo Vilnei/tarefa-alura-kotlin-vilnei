@@ -8,6 +8,7 @@ import java.net.http.HttpRequest
 import java.net.http.HttpResponse.BodyHandlers
 
 class ConsumoApi {
+
     fun buscaJogo(id: String):InfoJogo {
         val endereco = "https://www.cheapshark.com/api/1.0/games?id=$id"
 
@@ -21,4 +22,5 @@ class ConsumoApi {
 
         return meuInfoJogo
     }
+
 }
