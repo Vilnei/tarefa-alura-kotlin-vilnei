@@ -48,6 +48,9 @@ data class Gamer(var nome: String, var email: String) {
         }
     }
 
+    fun alugaJogo(jogo: Jogo) : Aluguel {
+        return Aluguel(this, jogo)
+    }
 
     //esse e um bloco de codigo que sera executado antes de inicializa a classe
     init {
@@ -86,5 +89,5 @@ data class Gamer(var nome: String, var email: String) {
 
     }
 
-
+ 
 }
