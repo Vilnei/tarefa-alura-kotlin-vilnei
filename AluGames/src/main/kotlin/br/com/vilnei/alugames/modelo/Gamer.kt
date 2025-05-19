@@ -19,14 +19,19 @@ data class Gamer(var nome: String, var email: String) {
     var idInterno:String? = null
         private set
 
+    var plano: PlanoAvulso = PlanoAvulso("BRONZE")
+
     //isntancia uma lista mutavel do tipo Jogo
     val jogosBuscados = mutableListOf<Jogo?>()
+
+    val jogosAlugados = mutableListOf<Aluguel>()
 
     constructor(nome:String, email:String, dataNascimento:String, usuario:String): this (nome, email) {
         this.dataNascimento = dataNascimento
         this.usuario = usuario
         criarIdInterno()
     }
+
 
     override fun toString(): String {
         return "Gamer(nome='$nome', email='$email', dataNascimento=$dataNascimento, usuario=$usuario, idInterno=$idInterno)"
@@ -48,8 +53,19 @@ data class Gamer(var nome: String, var email: String) {
         }
     }
 
-    fun alugaJogo(jogo: Jogo) : Aluguel {
-        return Aluguel(this, jogo)
+    fun alugaJogo(jogo: Jogo, periodo: Periodo) : Aluguel {
+
+        val aluguel = Aluguel(this, jogo, periodo)
+        jogosAlugados.add(aluguel)
+
+        return aluguel
+    }
+
+    fun jogosDoMes (mes: Int) : List<Jogo> {
+        //filtra nos jogos alugados o mes de acordo com a data incial do aluguel e o jogo q foi alugado naquele mes
+        return jogosAlugados.filter {
+            aluguel -> aluguel.periodo.dataInicial.monthValue == mes }
+            .map { aluguel -> aluguel.jogo }
     }
 
     //esse e um bloco de codigo que sera executado antes de inicializa a classe
